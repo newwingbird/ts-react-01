@@ -41,12 +41,30 @@ const App = () => {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
         todo.inputValue = inputValue;
+        console.log("Edit: ", inputText);
       }
       return todo;
     });
     // const の左辺右辺の型が等しくないのでエラーが吐かれていた
     setTodos(newTodos);
   };
+
+  const handleChecked = (id: number, checked: boolean) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.checked = !checked;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+  // filter 関数は　(todo.id ！==　id)  の場合は残す
+  // つまり、削除対象のみ配列をコピーしない
+  const handleDelete = (id: number) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  };
+
   return (
     <div className="App">
       <div>
@@ -70,12 +88,20 @@ const App = () => {
                 onChange={(e) => handleEdit(todo.id, e.target.value)}
                 disabled={todo.checked}
               />
-              {/* <input
+              <input
                 type="checkbox"
-                checked={todo.checked}
-                onChange={() => handleChecked(todo.id, todo.checked)}
+                onChange={(e) => handleChecked(todo.id, todo.checked)}
+                disabled={todo.checked}
               />
-              <button onClick={() => handleDelete(todo.id)}>消</button> */}
+              <div style={{ color: "red" }}>{todo.checked ? "💮 " : "😈"}</div>
+
+              <button
+                style={{ padding: 8 }}
+                className="deleteButton"
+                onClick={(e) => handleDelete(todo.id)}
+              >
+                dele
+              </button>
             </li>
           ))}
         </ul>
