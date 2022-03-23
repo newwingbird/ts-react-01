@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
+import StForm from "./RHF/StForm";
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -77,6 +78,8 @@ const App = () => {
           />
           <input type="submit" value="作成" className="submitButton" />
         </form>
+
+        <StForm />
         {/* タスク設定が完了したら */}
         <ul className="todoList">
           {todos.map((todo) => (
